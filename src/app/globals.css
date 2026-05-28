@@ -1,26 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap");
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-offwhite: #F5F4F0;
+  --color-cream: #EDECE7;
+  --color-ink: #1A1916;
+  --color-navy: #1E3A5F;
+  --color-navy-light: #2A4F7A;
+  --color-navy-faint: rgba(30, 58, 95, 0.06);
+  --color-border: rgba(26, 25, 22, 0.1);
+  --color-border-strong: rgba(26, 25, 22, 0.18);
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FAFAF8;
+  --color-surface-hover: #F0EFE9;
+  --color-muted: #7A776E;
+  --color-muted-light: #A09D95;
+
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --shadow-card: 0 1px 3px rgba(26, 25, 22, 0.04), 0 4px 12px rgba(26, 25, 22, 0.03);
+  --shadow-card-hover: 0 4px 16px rgba(26, 25, 22, 0.08), 0 8px 32px rgba(26, 25, 22, 0.04);
+  --shadow-elevated: 0 8px 32px rgba(26, 25, 22, 0.08), 0 2px 8px rgba(26, 25, 22, 0.04);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-offwhite);
+  color: var(--color-ink);
+  line-height: 1.7;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background-color: var(--color-navy);
+  color: white;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+/* Section divider line */
+.section-divider {
+  width: 48px;
+  height: 1px;
+  background: var(--color-border-strong);
+  margin-bottom: 24px;
+}
+
+/* Chip / pill base style */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  border-radius: 100px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  white-space: nowrap;
+}
+
+.chip:hover {
+  border-color: var(--color-navy);
+  color: var(--color-navy);
+  background: var(--color-navy-faint);
+  transform: translateY(-1px);
+}
+
+/* Card styling */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-card);
+}
+
+.card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* Button base */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  border: 1px solid var(--color-border-strong);
+  background: transparent;
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  border-color: var(--color-navy);
+  background: var(--color-navy);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(30, 58, 95, 0.2);
+}
+
+.btn-outline svg {
+  transition: transform 0.25s ease;
+}
+
+.btn-outline:hover svg {
+  transform: scale(1.15);
+}
+
+/* Smooth anchor offset for fixed navbar */
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+/* Subtle noise texture overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content is above noise */
+body > * {
+  position: relative;
+  z-index: 1;
 }
