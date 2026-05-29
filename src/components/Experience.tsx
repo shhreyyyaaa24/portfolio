@@ -2,66 +2,94 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { experienceConfig } from "@/data/config";
-import { parseMarkup } from "@/lib/parseMarkup";
 
 export default function Experience() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section
-      id="experience"
-      className="section-padding section-border"
-      ref={ref}
-    >
-      <div className="container">
+    <section id="experience" className="section-padding border-b border-border relative overflow-hidden" ref={ref}>
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55 }}
+          className="mb-16"
         >
-          <p className="section-label">Experience</p>
-          <h2 className="section-title">
-            {parseMarkup(experienceConfig.heading)}
+          <p className="section-label">04 / Experience</p>
+          <h2 className="section-heading font-heading text-4xl sm:text-5xl font-bold">
+            Work <span className="gradient-text">history.</span>
           </h2>
         </motion.div>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Vertical Line */}
+        {/* Timeline container */}
+        <div className="relative pl-6 sm:pl-8">
+          {/* Vertical Timeline Line */}
           <div className="timeline-line" />
 
-          <div className="space-y-10">
-            {experienceConfig.items.map((exp, i) => (
+          <div className="space-y-12">
+            {experienceConfig.map((item, idx) => (
               <motion.div
-                key={`${exp.company}-${exp.role}`}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.45, delay: 0.15 + i * 0.12 }}
-                className="relative pl-8"
+                key={`${item.company}-${item.role}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.55, delay: idx * 0.15 }}
+                className="relative group"
               >
-                {/* Dot */}
-                <div className="timeline-dot" />
+                {/* Bullet dot */}
+                <div className="timeline-dot group-hover:bg-accent group-hover:scale-125 transition-all duration-300" />
 
-                {/* Date */}
-                <p className="tl-meta">{exp.dateRange}</p>
+                {/* Main Card */}
+                <div className="glass-card p-8 md:p-10 hover:border-accent/30 relative">
+                  {/* Floating Date range for desktop */}
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+                    <div>
+                      <h3 className="font-semibold text-lg sm:text-xl text-ink flex flex-wrap items-center gap-2">
+                        {item.role}
+                        <span className="text-accent text-sm font-medium">
+                          @ {item.company}
+                        </span>
+                      </h3>
+                      
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5 text-xs text-ink-3">
+                        <span className="flex items-center gap-1">
+                          <MapPin size={12} />
+                          {item.location}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Briefcase size={12} />
+                          {item.type}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar size={12} />
+                          {item.dateRange}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
 
-                {/* Role & Company */}
-                <h3 className="tl-role">{exp.role}</h3>
-                <p className="tl-company">
-                  {exp.company} · {exp.type}
-                </p>
+                  {/* Bullet Points */}
+                  <ul className="space-y-3 mb-6 text-sm text-ink-2 leading-relaxed list-none">
+                    {item.bullets.map((bullet, bIdx) => (
+                      <li key={bIdx} className="flex items-start gap-2.5 hover:text-ink transition-colors duration-200">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent/40 shrink-0 mt-2" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                {/* Bullets */}
-                <ul>
-                  {exp.bullets.map((bullet, bIdx) => (
-                    <li key={bIdx} className="tl-bullet">
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
+                  {/* Tags / Technologies used */}
+                  <div className="flex flex-wrap gap-2 pt-2 border-t border-border/40">
+                    {item.tags.map((tag) => (
+                      <span key={tag} className="chip text-[10px] !py-1 !px-2.5 bg-bg-elevated font-mono">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>

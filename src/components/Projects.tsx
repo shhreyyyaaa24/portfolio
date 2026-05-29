@@ -2,101 +2,106 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { ExternalLink, Terminal, CheckCircle2 } from "lucide-react";
+import { GitHubIcon } from "@/components/Icons";
 import { projectsConfig } from "@/data/config";
-import { parseMarkup } from "@/lib/parseMarkup";
 
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section
-      id="projects"
-      className="section-padding section-border"
-      ref={ref}
-    >
-      <div className="container">
+    <section id="projects" className="section-padding border-b border-border relative overflow-hidden" ref={ref}>
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55 }}
+          className="mb-12"
         >
-          <p className="section-label">Projects</p>
-          <h2 className="section-title">
-            {parseMarkup(projectsConfig.heading)}
+          <p className="section-label">05 / Projects</p>
+          <h2 className="section-heading font-heading text-4xl sm:text-5xl font-bold">
+            Selected <span className="gradient-text">work.</span>
           </h2>
         </motion.div>
 
         {/* Projects Grid */}
-        <div
-          className="grid gap-px rounded-[10px] overflow-hidden"
-          style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))",
-            border: "0.5px solid var(--color-border)",
-            background: "var(--color-border)",
-          }}
-        >
-          {projectsConfig.items.map((project, i) => (
+        <div className="grid md:grid-cols-2 gap-10">
+          {projectsConfig.map((project, idx) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, delay: 0.15 + i * 0.08 }}
-              className="project-card"
+              transition={{ duration: 0.55, delay: idx * 0.1 }}
+              className="glass-card flex flex-col justify-between overflow-hidden group hover:border-accent/40"
             >
-              {/* Image Area */}
-              <div className="w-full aspect-video rounded-md bg-bg-card mb-6 flex items-center justify-center overflow-hidden"
-                style={{ border: "0.5px solid var(--color-border)" }}
-              >
-                {project.image ? (
-                  <img
-                    src={project.image}
-                    alt={`${project.title} screenshot`}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <span className="font-mono text-[11px] text-ink-3 tracking-[0.06em]">
-                    screenshot coming soon
-                  </span>
-                )}
-              </div>
+              {/* Card Header decoration */}
+              <div className="h-1.5 w-full bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3" />
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="project-tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              <div className="p-8 md:p-10 flex-1 flex flex-col justify-between">
+                <div>
+                  {/* Title & Icons */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-accent-glow flex items-center justify-center text-accent shrink-0">
+                        <Terminal size={20} />
+                      </div>
+                      <h3 className="font-semibold text-lg sm:text-xl text-ink group-hover:text-accent transition-colors duration-200">
+                        {project.title}
+                      </h3>
+                    </div>
 
-              {/* Title */}
-              <h3 className="project-title">{project.title}</h3>
+                    <div className="flex items-center gap-3">
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-ink-3 hover:text-ink transition-colors duration-200"
+                          title="View Source Code"
+                        >
+                          <GitHubIcon size={18} />
+                        </a>
+                      )}
+                      {project.live && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-ink-3 hover:text-ink transition-colors duration-200"
+                          title="View Live Demo"
+                        >
+                          <ExternalLink size={18} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
 
-              {/* Description */}
-              <p className="text-[0.9rem] font-light text-ink-2 leading-relaxed flex-1 mb-6">
-                {project.description}
-              </p>
+                  {/* Description */}
+                  <p className="text-sm text-ink-2 mb-6 leading-relaxed">
+                    {project.description}
+                  </p>
 
-              {/* Links */}
-              <div className="flex gap-3">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-link"
-                >
-                  GitHub →
-                </a>
-                <a
-                  href={project.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-link"
-                >
-                  Live Demo →
-                </a>
+                  {/* Highlights / Bullets */}
+                  <div className="space-y-2 mb-6">
+                    {project.highlights.map((bullet, bIdx) => (
+                      <div key={bIdx} className="flex items-start gap-2 text-xs text-ink-2 leading-relaxed">
+                        <CheckCircle2 size={13} className="text-accent shrink-0 mt-0.5" />
+                        <span>{bullet}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Tech Chips */}
+                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border/40">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="chip text-[10px] !py-0.5 !px-2 bg-bg-elevated font-mono">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}
