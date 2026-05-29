@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { siteConfig } from "@/data/config";
 
 export default function Footer() {
   const ref = useRef(null);
@@ -13,16 +14,18 @@ export default function Footer() {
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : {}}
       transition={{ duration: 0.6 }}
-      className="border-t border-border py-8 px-6"
+      className="py-6 flex items-center justify-between"
+      style={{
+        padding: "1.5rem clamp(1.5rem, 5vw, 3rem)",
+        borderTop: "0.5px solid var(--color-border)",
+      }}
     >
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="font-mono text-xs text-muted tracking-wide">
-          © {new Date().getFullYear()} [YOUR_NAME]
-        </p>
-        <p className="font-mono text-xs text-muted tracking-wide">
-          Built with Next.js
-        </p>
-      </div>
+      <span className="footer-text">
+        © {siteConfig.copyrightYear} {siteConfig.name}
+      </span>
+      <span className="footer-text hidden sm:inline">
+        Built with craft · Next.js
+      </span>
     </motion.footer>
   );
 }

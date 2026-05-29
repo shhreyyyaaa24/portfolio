@@ -4,95 +4,92 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Mail } from "lucide-react";
 import { GitHubIcon, LinkedInIcon, MediumIcon } from "@/components/Icons";
+import { contactConfig, socialLinks, siteConfig, type SocialLink } from "@/data/config";
+import { parseMarkup } from "@/lib/parseMarkup";
 
-const contactLinks = [
-  {
-    label: "Email",
-    href: "mailto:[YOUR_EMAIL]",
-    icon: Mail,
-  },
-  {
-    label: "LinkedIn",
-    href: "[LINKEDIN_URL]",
-    icon: LinkedInIcon,
-  },
-  {
-    label: "GitHub",
-    href: "[GITHUB_URL]",
-    icon: GitHubIcon,
-  },
-  {
-    label: "Medium",
-    href: "[MEDIUM_URL]",
-    icon: MediumIcon,
-  },
-];
+const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+  email: Mail,
+  github: GitHubIcon,
+  linkedin: LinkedInIcon,
+  medium: MediumIcon,
+};
+
+function ContactButton({ link }: { link: SocialLink }) {
+  const Icon = iconMap[link.iconType] ?? Mail;
+  const isEmail = link.iconType === "email";
+
+  return (
+    <a
+      href={isEmail ? `mailto:${siteConfig.email}` : link.href}
+      target={isEmail ? undefined : "_blank"}
+      rel={isEmail ? undefined : "noopener noreferrer"}
+      className="btn btn-ghost"
+      id={`contact-link-${link.label.toLowerCase()}`}
+    >
+      <Icon size={14} />
+      {isEmail ? siteConfig.email : link.label}
+    </a>
+  );
+}
 
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="py-28 px-6" ref={ref}>
-      <div className="max-w-2xl mx-auto text-center">
-        {/* Section Label */}
+    <section id="contact" className="section-padding text-center" ref={ref}>
+      <div className="max-w-[520px] mx-auto">
+        {/* Label */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="font-mono text-xs tracking-[0.2em] uppercase text-muted mb-3"
+          transition={{ duration: 0.55 }}
+          className="section-label text-center"
         >
-          05 / Contact
+          Contact
         </motion.p>
 
         {/* Headline */}
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="font-serif text-4xl sm:text-5xl text-ink mb-4"
+          transition={{ duration: 0.55, delay: 0.1 }}
+          className="contact-tagline"
         >
-          Let&apos;s connect
+          {parseMarkup(contactConfig.heading)}
         </motion.h2>
 
-        {/* Subtext */}
+        {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-muted text-[15px] leading-relaxed mb-10 max-w-md mx-auto"
+          className="contact-sub"
         >
-          I&apos;m always open to new opportunities, collaborations, or just a
-          good conversation about engineering. Reach out anytime.
+          {contactConfig.description}
         </motion.p>
 
-        {/* Contact Buttons */}
+        {/* Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.35 }}
-          className="flex items-center justify-center gap-3 flex-wrap"
+          className="flex flex-wrap justify-center gap-3"
         >
-          {contactLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-              rel={
-                link.href.startsWith("mailto:")
-                  ? undefined
-                  : "noopener noreferrer"
-              }
-              id={`contact-link-${link.label.toLowerCase()}`}
-              className="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-border hover:border-navy hover:bg-navy hover:text-white text-ink transition-all duration-300 font-mono text-xs tracking-wider uppercase"
-            >
-              <link.icon
-                size={14}
-                className="group-hover:scale-110 transition-transform"
-              />
-              {link.label}
-            </a>
-          ))}
+          {/* Primary email button */}
+          <a
+            href={`mailto:${siteConfig.email}`}
+            className="btn btn-primary"
+          >
+            <Mail size={14} />
+            {siteConfig.email}
+          </a>
+          {/* Other socials */}
+          {socialLinks
+            .filter((l) => l.iconType !== "email")
+            .map((link) => (
+              <ContactButton key={link.label} link={link} />
+            ))}
         </motion.div>
       </div>
     </section>
