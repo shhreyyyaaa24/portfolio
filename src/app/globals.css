@@ -319,3 +319,23 @@ a {
   transform: scale(1.1);
 }
 
+/* ── Gallery scrollbar hiding ── */
+.gallery-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-scroll {
+  margin: 0 auto;
+  scroll-behavior: smooth;
+}
+
+/* ── Smooth scroll snap ── */
+.snap-x {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-center {
+  scroll-snap-align: center;
+  scroll-snap-stop: auto;
+}
+
