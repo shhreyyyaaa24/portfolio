@@ -12,6 +12,7 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
 
 export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,6 +20,19 @@ export default function Hero() {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  // Auto-scroll to about section after 5 seconds on initial load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const aboutSection = document.getElementById("about");
+      if (aboutSection && !hasScrolled) {
+        aboutSection.scrollIntoView({ behavior: "smooth" });
+        setHasScrolled(true);
+      }
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [hasScrolled]);
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
@@ -32,7 +46,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="font-mono text-sm text-accent mb-4 tracking-wide"
+          className="font-mono text-sm text-accent mb-6 tracking-wide"
         >
           {heroConfig.greeting}
         </motion.p>
@@ -42,7 +56,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-4"
+          className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6"
         >
           <span className="gradient-text">{heroConfig.name}</span>
         </motion.h1>
@@ -52,11 +66,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.45 }}
-          className="h-10 mb-6 overflow-hidden"
+          className="h-12 mb-8 overflow-hidden"
         >
           <motion.p
             key={roleIdx}
-            initial={{ y: 30, opacity: 0 }}
+            initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -30, opacity: 0 }}
             transition={{ duration: 0.5 }}

@@ -17,7 +17,7 @@ export default function Experience() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55 }}
-          className="mb-16"
+          className="mb-20"
         >
           <p className="section-label">04 / Experience</p>
           <h2 className="section-heading font-heading text-4xl sm:text-5xl font-bold">
@@ -26,11 +26,11 @@ export default function Experience() {
         </motion.div>
 
         {/* Timeline container */}
-        <div className="relative pl-6 sm:pl-8">
+        <div className="relative pl-8 sm:pl-10">
           {/* Vertical Timeline Line */}
           <div className="timeline-line" />
 
-          <div className="space-y-12">
+          <div className="space-y-16">
             {experienceConfig.map((item, idx) => (
               <motion.div
                 key={`${item.company}-${item.role}`}
@@ -43,28 +43,28 @@ export default function Experience() {
                 <div className="timeline-dot group-hover:bg-accent group-hover:scale-125 transition-all duration-300" />
 
                 {/* Main Card */}
-                <div className="glass-card p-8 md:p-10 hover:border-accent/30 relative">
+                <div className="glass-card p-10 md:p-12 hover:border-accent/30 relative">
                   {/* Floating Date range for desktop */}
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                     <div>
-                      <h3 className="font-semibold text-lg sm:text-xl text-ink flex flex-wrap items-center gap-2">
+                      <h3 className="font-semibold text-lg sm:text-xl text-ink flex flex-wrap items-center gap-3">
                         {item.role}
-                        <span className="text-accent text-sm font-medium">
+                        <span className="text-accent text-base font-medium">
                           @ {item.company}
                         </span>
                       </h3>
                       
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5 text-xs text-ink-3">
-                        <span className="flex items-center gap-1">
-                          <MapPin size={12} />
+                      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-2 text-sm text-ink-3">
+                        <span className="flex items-center gap-2">
+                          <MapPin size={14} />
                           {item.location}
                         </span>
-                        <span className="flex items-center gap-1">
-                          <Briefcase size={12} />
+                        <span className="flex items-center gap-2">
+                          <Briefcase size={14} />
                           {item.type}
                         </span>
-                        <span className="flex items-center gap-1">
-                          <Calendar size={12} />
+                        <span className="flex items-center gap-2">
+                          <Calendar size={14} />
                           {item.dateRange}
                         </span>
                       </div>
@@ -72,19 +72,19 @@ export default function Experience() {
                   </div>
 
                   {/* Bullet Points */}
-                  <ul className="space-y-3 mb-6 text-sm text-ink-2 leading-relaxed list-none">
+                  <ul className="space-y-4 mb-8 text-base text-ink-2 leading-relaxed list-none">
                     {item.bullets.map((bullet, bIdx) => (
-                      <li key={bIdx} className="flex items-start gap-2.5 hover:text-ink transition-colors duration-200">
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent/40 shrink-0 mt-2" />
+                      <li key={bIdx} className="flex items-start gap-3 hover:text-ink transition-colors duration-200">
+                        <span className="w-2 h-2 rounded-full bg-accent shrink-0 mt-2.5" />
                         <span>{bullet}</span>
                       </li>
                     ))}
                   </ul>
 
                   {/* Tags / Technologies used */}
-                  <div className="flex flex-wrap gap-2 pt-2 border-t border-border/40">
+                  <div className="flex flex-wrap gap-3 pt-4 border-t border-border/40">
                     {item.tags.map((tag) => (
-                      <span key={tag} className="chip text-[10px] !py-1 !px-2.5 bg-bg-elevated font-mono">
+                      <span key={tag} className="chip text-xs py-2 px-3 bg-bg-elevated font-mono">
                         {tag}
                       </span>
                     ))}

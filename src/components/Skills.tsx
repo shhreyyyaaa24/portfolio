@@ -27,7 +27,7 @@ export default function Skills() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55 }}
-          className="mb-12"
+          className="mb-20"
         >
           <p className="section-label">02 / Technical Skills</p>
           <h2 className="section-heading font-heading text-4xl sm:text-5xl font-bold">
@@ -36,7 +36,7 @@ export default function Skills() {
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
           {skillsConfig.map((category, catIdx) => {
             const Icon = iconMap[category.category] || Code2;
             return (
@@ -45,21 +45,21 @@ export default function Skills() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.45, delay: 0.1 + catIdx * 0.05 }}
-                className="glass-card p-8 flex flex-col justify-between animate-hover"
+                className="glass-card p-10 flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
                 <div>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-accent-glow flex items-center justify-center text-accent shrink-0">
-                      <Icon size={20} />
+                  <div className="flex items-center gap-6 mb-8">
+                    <div className="w-16 h-16 rounded-xl bg-accent-glow flex items-center justify-center text-accent shrink-0">
+                      <Icon size={24} />
                     </div>
-                    <h3 className="font-semibold text-sm text-ink tracking-wide uppercase">
+                    <h3 className="font-semibold text-base text-ink tracking-wide uppercase">
                       {category.category}
                     </h3>
                   </div>
 
-                  <div className="flex flex-wrap gap-2.5">
+                  <div className="flex flex-wrap gap-3">
                     {category.items.map((item) => (
-                      <span key={item} className="chip">
+                      <span key={item} className="chip text-sm py-2 px-3">
                         {item}
                       </span>
                     ))}

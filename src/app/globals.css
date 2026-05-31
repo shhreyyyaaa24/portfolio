@@ -96,7 +96,24 @@ section[id] { scroll-margin-top: 80px; }
 }
 
 /* ── Section styling ── */
-.section-padding { padding: 130px 24px; }
+.section-padding { padding: 160px 24px; }
+
+/* ── Enhanced padding utilities ── */
+.component-padding { padding: 40px; }
+@media (max-width: 640px) { .component-padding { padding: 24px; } }
+
+.icon-padding { padding: 16px; }
+
+/* ── Improved spacing ── */
+.section-gap { gap: 48px; }
+.component-gap { gap: 32px; }
+
+/* ── Spacer utilities ── */
+.spacer-xl { height: 80px; }
+.spacer-lg { height: 60px; }
+
+/* ── Container max-width ── */
+.container-max { max-width: 1400px; }
 
 .section-label {
   font-family: var(--font-mono);
@@ -203,5 +220,102 @@ section[id] { scroll-margin-top: 80px; }
 @media (max-width: 768px) {
   .section-padding { padding: 90px 16px; }
   .tour-btn { bottom: 16px; right: 16px; padding: 10px 18px; font-size: 12px; }
+}
+
+/* ── Enhanced Animations ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(108, 99, 255, 0.4); }
+  50% { box-shadow: 0 0 40px rgba(108, 99, 255, 0.6); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+/* ── Smooth scrolling within viewed sections ── */
+.section-padding {
+  position: relative;
+}
+
+/* ── Interactive hover effects ── */
+.glass-card {
+  position: relative;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(167, 139, 250, 0.03) 50%, transparent 100%);
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Enhanced link hover states ── */
+a {
+  position: relative;
+}
+
+.btn-primary,
+.btn-outline {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before,
+.btn-outline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.btn-primary:hover::before,
+.btn-outline:hover::before {
+  left: 100%;
+}
+
+/* ── Smooth scroll behavior ── */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ── Icon scale animation ── */
+.icon-scale {
+  transition: transform 0.3s ease;
+}
+
+.icon-scale:hover {
+  transform: scale(1.1);
 }
 

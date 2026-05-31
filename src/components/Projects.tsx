@@ -18,7 +18,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55 }}
-          className="mb-12"
+          className="mb-20"
         >
           <p className="section-label">05 / Projects</p>
           <h2 className="section-heading font-heading text-4xl sm:text-5xl font-bold">
@@ -27,7 +27,7 @@ export default function Projects() {
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-10">
+        <div className="grid md:grid-cols-2 gap-12">
           {projectsConfig.map((project, idx) => (
             <motion.div
               key={project.title}
@@ -37,31 +37,31 @@ export default function Projects() {
               className="glass-card flex flex-col justify-between overflow-hidden group hover:border-accent/40"
             >
               {/* Card Header decoration */}
-              <div className="h-1.5 w-full bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3" />
+              <div className="h-2 w-full bg-gradient-to-r from-gradient-1 via-gradient-2 to-gradient-3" />
 
-              <div className="p-8 md:p-10 flex-1 flex flex-col justify-between">
+              <div className="p-10 md:p-12 flex-1 flex flex-col justify-between">
                 <div>
                   {/* Title & Icons */}
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-accent-glow flex items-center justify-center text-accent shrink-0">
-                        <Terminal size={20} />
+                      <div className="w-14 h-14 rounded-xl bg-accent-glow flex items-center justify-center text-accent shrink-0">
+                        <Terminal size={24} />
                       </div>
                       <h3 className="font-semibold text-lg sm:text-xl text-ink group-hover:text-accent transition-colors duration-200">
                         {project.title}
                       </h3>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-4">
                       {project.github && (
                         <a
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-ink-3 hover:text-ink transition-colors duration-200"
+                          className="text-ink-3 hover:text-accent transition-colors duration-200 hover:scale-110 transform"
                           title="View Source Code"
                         >
-                          <GitHubIcon size={18} />
+                          <GitHubIcon size={20} />
                         </a>
                       )}
                       {project.live && (
@@ -69,10 +69,10 @@ export default function Projects() {
                           href={project.live}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-ink-3 hover:text-ink transition-colors duration-200"
+                          className="text-ink-3 hover:text-accent transition-colors duration-200 hover:scale-110 transform"
                           title="View Live Demo"
                         >
-                          <ExternalLink size={18} />
+                          <ExternalLink size={20} />
                         </a>
                       )}
                     </div>

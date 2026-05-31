@@ -43,17 +43,17 @@ export default function Navbar() {
           scrolled ? "bg-bg/80 backdrop-blur-xl border-b border-border" : "bg-transparent"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 text-ink no-underline group">
-            <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-gradient-1 to-gradient-2 flex items-center justify-center text-white text-xs font-bold">
+          <a href="#" className="flex items-center gap-3 text-ink no-underline group shrink-0">
+            <span className="w-10 h-10 rounded-lg bg-gradient-to-br from-gradient-1 to-gradient-2 flex items-center justify-center text-white text-sm font-bold">
               {siteConfig.initials}
             </span>
-            <span className="font-semibold text-sm hidden sm:block">{siteConfig.name}</span>
+            <span className="font-semibold text-base hidden sm:block">{siteConfig.name}</span>
           </a>
 
           {/* Desktop Links */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => {
               const sectionId = link.href.replace("#", "");
               const isActive = activeSection === sectionId;
@@ -61,11 +61,18 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`nav-link px-3 py-2 text-xs font-medium tracking-wide uppercase transition-colors duration-200 no-underline ${
-                    isActive ? "nav-link-active text-accent" : "text-ink-3 hover:text-ink"
+                  className={`relative px-1 py-2 text-sm font-medium tracking-wide transition-colors duration-300 no-underline group ${
+                    isActive ? "text-accent" : "text-ink-3 hover:text-ink"
                   }`}
                 >
                   {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="navbar-underline"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-accent-2"
+                      transition={{ type: "spring", stiffness: 200, damping: 30 }}
+                    />
+                  )}
                 </a>
               );
             })}
