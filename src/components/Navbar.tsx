@@ -5,7 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 import { siteConfig, navLinks } from "@/data/config";
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenResume: () => void;
+}
+
+export default function Navbar({ onOpenResume }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -80,10 +84,14 @@ export default function Navbar() {
 
           {/* Resume Button + Mobile Toggle */}
           <div className="flex items-center gap-3">
-            <a href={siteConfig.resumeUrl} className="btn-outline text-xs !py-2 !px-4 hidden sm:inline-flex">
+            <button
+              type="button"
+              onClick={onOpenResume}
+              className="btn-outline text-xs !py-2 !px-4 hidden sm:inline-flex"
+            >
               <Download size={13} />
               Resume
-            </a>
+            </button>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="lg:hidden p-2 text-ink bg-transparent border-none cursor-pointer"
@@ -118,6 +126,19 @@ export default function Navbar() {
                 {link.label}
               </motion.a>
             ))}
+            <motion.button
+              type="button"
+              onClick={() => {
+                setMobileOpen(false);
+                onOpenResume();
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: navLinks.length * 0.06 }}
+              className="text-2xl font-semibold text-accent no-underline transition-colors"
+            >
+              Resume
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>

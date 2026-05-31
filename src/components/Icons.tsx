@@ -57,10 +57,9 @@ export function MediumIcon({ size = 24, className = "" }: IconProps) {
       strokeLinejoin="round"
       className={className}
     >
-      <path d="M4 4h16v16H4z" />
-      <path d="M8 8v8" />
-      <path d="M12 8v8" />
-      <path d="M16 8v8" />
+      <path d="M5 7.5c0-1.38 0.68-2.1 1.53-1.65L10 8.5l3.47-2.65c0.85-0.45 1.53 0.26 1.53 1.65v9c0 1.38-0.68 2.1-1.53 1.65L10 15.5l-3.47 2.65C5.68 19.1 5 18.38 5 17v-9z" />
+      <path d="M14 6.5h4" />
+      <path d="M14 17.5h4" />
     </svg>
   );
 }

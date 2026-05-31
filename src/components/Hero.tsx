@@ -10,7 +10,11 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   email: Mail, github: GitHubIcon, linkedin: LinkedInIcon, medium: MediumIcon,
 };
 
-export default function Hero() {
+interface HeroProps {
+  onOpenResume: () => void;
+}
+
+export default function Hero({ onOpenResume }: HeroProps) {
   const [roleIdx, setRoleIdx] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -143,10 +147,14 @@ export default function Hero() {
           </div>
 
           {/* Right: Resume Button */}
-          <a href={siteConfig.resumeUrl} className="btn-outline flex-1 w-full sm:w-auto justify-center">
+          <button
+            type="button"
+            onClick={onOpenResume}
+            className="btn-outline flex-1 w-full sm:w-auto justify-center"
+          >
             <Download size={16} />
             {heroConfig.resumeLabel}
-          </a>
+          </button>
         </motion.div>
 
         {/* Scroll indicator */}

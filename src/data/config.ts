@@ -13,9 +13,9 @@ export const siteConfig = {
   title: "Software Engineer",
   tagline:
     "Building scalable systems, intelligent CI/CD pipelines, and polished user experiences — from GCP infrastructure to React Native frontends.",
-  email: "you@email.com",
+  email: "shhreyyyaa1@gmail.com",
   copyrightYear: new Date().getFullYear(),
-  resumeUrl: "#", // link to downloadable resume PDF
+  resumeUrl: "/resume.pdf", // link to downloadable resume PDF
 };
 
 // ── Social Links ───────────────────────────────────────
@@ -27,9 +27,9 @@ export interface SocialLink {
 }
 
 export const socialLinks: SocialLink[] = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/yourhandle", iconType: "linkedin" },
-  { label: "GitHub", href: "https://github.com/yourhandle", iconType: "github" },
-  { label: "Medium", href: "https://medium.com/@yourhandle", iconType: "medium" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/shhreyyyaaa24/", iconType: "linkedin" },
+  { label: "GitHub", href: "https://github.com/shhreyyyaaa24", iconType: "github" },
+  { label: "Medium", href: "https://medium.com/@shhreyyyaa1", iconType: "medium" },
   { label: "Email", href: "mailto:you@email.com", iconType: "email" },
 ];
 
@@ -54,7 +54,7 @@ export const heroConfig = {
   description:
     "Software Engineer at UKG building intelligent CI/CD systems with LLMs, AST-aware embeddings, and GCP infrastructure. Previously at OYO Rooms. B.Tech from IGDTUW (9.18 CGPA).",
   ctaLabel: "Get in touch",
-  resumeLabel: "Download CV",
+  resumeLabel: "View Resume",
 };
 
 // ── About Section ──────────────────────────────────────
